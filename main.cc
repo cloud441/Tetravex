@@ -4,7 +4,7 @@
 
 #include "mediamanager.hh"
 #include "utils.hh"
-
+#include "solve.hh"
 
 int main(int argc, char **argv) {
     if (argc != 3) {
@@ -24,6 +24,8 @@ int main(int argc, char **argv) {
     print_tetravex(tetravex);
 
     m_manager.write_tetravex_file(argv[2], tetravex);
+
+    solve(tetravex);
 
     return 0;
 }
