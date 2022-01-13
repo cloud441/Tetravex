@@ -1,9 +1,9 @@
 CC= g++ -Wall -Wextra -Werror -std=c++11
-OBJ= main.o mediamanager.o
+OBJ= mediamanager.o utils.o main.o
 
 
-tetravex: $(OBJ)
-	$(CC) -o $@ $?
+tetravex: ${OBJ:.o=.cc} $(OBJ)
+	$(CC) -o $@ $(OBJ)
 
 
 clean:
