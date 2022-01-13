@@ -23,5 +23,7 @@ int main(int argc, char **argv) {
 
     print_tetravex(tetravex);
 
+    m_manager.write_tetravex_file(argv[2], tetravex);
+
     return 0;
 }

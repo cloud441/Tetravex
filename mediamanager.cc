@@ -59,3 +59,13 @@ std::vector<std::array<int, 5>> mediaManager::get_input_tetravex() {
 
     return tetravex;
 }
+
+
+void mediaManager::write_tetravex_file(std::string filepath, std::vector<std::array<int, 5>> tetravex) {
+    std::ofstream output_file;
+    output_file.open(filepath, std::ofstream::out | std::ofstream::trunc);
+
+    for (auto tile: tetravex) {
+        output_file << tile[0] << tile[1] << tile[2] << tile[3] << '\n';
+    }
+}

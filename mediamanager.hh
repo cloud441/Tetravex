@@ -8,15 +8,14 @@
 #include <math.h>
 
 class mediaManager {
-    
     private:
 
         std::ifstream input_file;
-        std::ofstream output_file;
 
 
     public:
 
         int read_file(std::string filepath);
         std::vector<std::array<int, 5>>get_input_tetravex();
+        void write_tetravex_file(std::string filepath, std::vector<std::array<int, 5>> tetravex);
 };
