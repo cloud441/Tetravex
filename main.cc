@@ -5,12 +5,14 @@
 #include "mediamanager.hh"
 #include "utils.hh"
 #include "solve.hh"
+#include "test.hh"
 
 int main(int argc, char **argv) {
-    if (argc != 3) {
-        std::cerr << "Error: You need to give exactly 2 arguments: a input filepath, and a output filepath." << std::endl;
-        return 1;
-    }
+    
+	if (argc != 3) {
+        	std::cerr << "Error: You need to give exactly 2 arguments: a input filepath, and a output filepath." << std::endl;
+        	return 1;
+    	}
 
     mediaManager m_manager = mediaManager();
 
@@ -21,11 +23,9 @@ int main(int argc, char **argv) {
     if (tetravex.empty())
         return 1;
 
-    print_tetravex(tetravex);
+    tetravex = solve(tetravex, true);
 
     m_manager.write_tetravex_file(argv[2], tetravex);
-
-    solve(tetravex);
 
     return 0;
 }
