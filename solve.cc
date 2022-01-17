@@ -126,7 +126,7 @@ std::vector<std::array<int, 5>> solve(std::vector<std::array<int, 5>> tetravex, 
 
 	int cost = compute_cost(tetravex);
 	double temperature = 4 * tetravex.size() - 4 * sqrt(tetravex.size());
-	double factor = 0.9999999;
+	double factor = 0.99;
 	int nb_step = 0;
 	int last_upgrade = 0;
 
@@ -203,16 +203,17 @@ std::vector<std::array<int, 5>> solve(std::vector<std::array<int, 5>> tetravex, 
 		nb_step++;
 		temperature = factor * temperature;
 
-		/*
 		if ((nb_step - last_upgrade) > 100000)
 		{
 			temperature += (int)(((4 * tetravex.size() - 4 * sqrt(tetravex.size())) - temperature) / 2);
-		}*/
+		}
 	}
 
 
 	if (debug)
 		std::cout << "We have resolve the tetravex in " << nb_step << std::endl;
+
+	print_tetravex(solve_tetravex);
 
 	time = clock();
 	std::cout << "Solve in " << time << " and in " << nb_step << " step !" << std::endl;
