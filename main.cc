@@ -23,7 +23,7 @@ int main(int argc, char **argv) {
     if (tetravex.empty())
         return 1;
 
-    tetravex = solve(tetravex, true);
+    tetravex = solve(tetravex, false);
 
     m_manager.write_tetravex_file(argv[2], tetravex);
 

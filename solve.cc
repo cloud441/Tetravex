@@ -99,7 +99,6 @@ std::vector<std::array<int, 5>> solve(std::vector<std::array<int, 5>> tetravex, 
 	if (debug)
 		std::cout << "Our Tetravex is the following : " << std::endl;
 
-	print_tetravex(tetravex);
 	
 	std::vector<std::array<int, 5>> solve_tetravex = tetravex;
 	std::vector<int> tile_to_move;
@@ -129,6 +128,7 @@ std::vector<std::array<int, 5>> solve(std::vector<std::array<int, 5>> tetravex, 
 	double temperature = 4 * tetravex.size() - 4 * sqrt(tetravex.size());
 	double factor = 0.9999999;
 	int nb_step = 0;
+	int last_upgrade = 0;
 
 	if (debug)
 		std::cout << "Before first step we have :\n\tcost : " << cost << "\n\ttemperature : ";
@@ -170,6 +170,7 @@ std::vector<std::array<int, 5>> solve(std::vector<std::array<int, 5>> tetravex, 
 				std::cout << "We have a better cost so we change it" << std::endl;
 			tetravex = solve_tetravex;
 			cost = temp_cost;
+			last_upgrade = nb_step;
 		}
 		else
 		{
@@ -201,6 +202,12 @@ std::vector<std::array<int, 5>> solve(std::vector<std::array<int, 5>> tetravex, 
 
 		nb_step++;
 		temperature = factor * temperature;
+
+		/*
+		if ((nb_step - last_upgrade) > 100000)
+		{
+			temperature += (int)(((4 * tetravex.size() - 4 * sqrt(tetravex.size())) - temperature) / 2);
+		}*/
 	}
 
 
