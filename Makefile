@@ -1,5 +1,5 @@
 CC= g++ -Wall -Wextra -Werror -std=c++11
-OBJ= mediamanager.o utils.o main.o
+OBJ= mediamanager.o utils.o main.o solve.o test.o
 
 
 tetravex: ${OBJ:.o=.cc} $(OBJ)
