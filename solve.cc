@@ -243,7 +243,7 @@ std::vector<std::array<int, 5>> solve(std::vector<std::array<int, 5>> tetravex, 
 
 		if ((nb_step - last_upgrade) > nb_stuck_step)
 		{
-			temperature += (int)(((4 * tetravex.size() - 4 * sqrt(tetravex.size())) - temperature) / 2);
+			temperature += (int)(2 * tetravex.size() - 2 * sqrt(tetravex.size()));
 			last_upgrade = nb_step;
 		}
 	}
