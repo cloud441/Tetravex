@@ -126,7 +126,39 @@ std::vector<std::array<int, 5>> solve(std::vector<std::array<int, 5>> tetravex, 
 
 	int cost = compute_cost(tetravex);
 	double temperature = 4 * tetravex.size() - 4 * sqrt(tetravex.size());
+	
 	double factor = 0.99;
+	int nb_stuck_step = 100000;
+	if (tetravex.size() == 4)
+	{
+		factor = 0.99;
+		nb_stuck_step = 100000;
+	}
+
+	if (tetravex.size() == 9)
+	{
+		factor = 0.99;
+		nb_stuck_step = 100000;
+	}
+
+	if (tetravex.size() == 16)
+	{
+		factor = 0.99;
+		nb_stuck_step = 100000;
+	}
+
+	if (tetravex.size() == 25)
+	{
+		factor = 0.99998;
+		nb_stuck_step = 200000;
+	}
+
+	if (tetravex.size() == 36)
+	{
+		factor = 0.9999998;
+		nb_stuck_step = 1000000;
+	}
+
 	int nb_step = 0;
 	int last_upgrade = 0;
 
@@ -143,7 +175,6 @@ std::vector<std::array<int, 5>> solve(std::vector<std::array<int, 5>> tetravex, 
 		if (debug)
 			std::cout << "\n\nWe start the step " << nb_step << std::endl;
 
-		solve_tetravex = tetravex;
 		std::array<int, 2> next_move = select_random_tile(tile_to_move);
 
 		if (debug)
@@ -151,7 +182,10 @@ std::vector<std::array<int, 5>> solve(std::vector<std::array<int, 5>> tetravex, 
 		if (debug)
 			std::cout << std::endl;
 
-		solve_tetravex = swap_tile(next_move[0], next_move[1], solve_tetravex);
+		std::array<int, 5> temp = solve_tetravex[next_move[0]];
+		solve_tetravex[next_move[0]] = solve_tetravex[next_move[1]];
+		solve_tetravex[next_move[1]] = temp;
+		
 		if (debug)
 			std::cout << "\n" << std::endl;
 		if (debug)
@@ -168,7 +202,6 @@ std::vector<std::array<int, 5>> solve(std::vector<std::array<int, 5>> tetravex, 
 		{
 			if (debug)
 				std::cout << "We have a better cost so we change it" << std::endl;
-			tetravex = solve_tetravex;
 			cost = temp_cost;
 			last_upgrade = nb_step;
 		}
@@ -195,17 +228,23 @@ std::vector<std::array<int, 5>> solve(std::vector<std::array<int, 5>> tetravex, 
 			{
 				if (debug)
 					std::cout << "So we change because we have the proba" << std::endl;
-				tetravex = solve_tetravex;
 				cost = temp_cost;
+			}
+			else
+			{
+				std::array<int, 5> temp = solve_tetravex[next_move[0]];
+				solve_tetravex[next_move[0]] = solve_tetravex[next_move[1]];
+				solve_tetravex[next_move[1]] = temp;
 			}
 		}
 
 		nb_step++;
 		temperature = factor * temperature;
 
-		if ((nb_step - last_upgrade) > 100000)
+		if ((nb_step - last_upgrade) > nb_stuck_step)
 		{
 			temperature += (int)(((4 * tetravex.size() - 4 * sqrt(tetravex.size())) - temperature) / 2);
+			last_upgrade = nb_step;
 		}
 	}
 
@@ -215,8 +254,7 @@ std::vector<std::array<int, 5>> solve(std::vector<std::array<int, 5>> tetravex, 
 
 	print_tetravex(solve_tetravex);
 
-	time = clock();
-	std::cout << "Solve in " << time << " and in " << nb_step << " step !" << std::endl;
+	std::cout << "Solve in " << nb_step << " step !" << std::endl;
 
 	return solve_tetravex;
 }
