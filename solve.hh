@@ -7,7 +7,7 @@
 
 int compute_cost(std::vector<std::array<int, 5>> tetravex);
 
-std::vector<std::array<int, 5>> swap_tile(int i, int j, std::vector<std::array<int, 5>> tetravex);
+void swap_tile(int i, int j, std::vector<std::array<int, 5>> tetravex);
 
 std::array<int, 2> select_random_tile(std::vector<int> valid_tile);
 
